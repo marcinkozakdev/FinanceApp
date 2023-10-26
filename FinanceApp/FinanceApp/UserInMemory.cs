@@ -2,32 +2,64 @@
 {
     public class UserInMemory : UserBase
     {
-        List<float> transactions = new List<float>();
+        List<float> amounts = new List<float>();
+        private string name;
+        private string surname;
 
         public override event TransactionAddedDelegate TransactionAdded;
 
-        public UserInMemory(string name, string surname) : base(name, surname) { }
-
-        public override void AddTransaction(float amount)
+        public override string Name
         {
-            if (amount > 0 && amount <= 100)
+            get
             {
-                this.transactions.Add(amount);
-
-                if (TransactionAdded != null)
+                return $"{char.ToUpper(name[0])}{name.Substring(1, name.Length - 1).ToLower()}";
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
                 {
-                    TransactionAdded(this, new EventArgs());
+                    name = value;
                 }
             }
-            else
+        }
+        public override string Surname
+        {
+            get
             {
-                throw new Exception($"{amount}is invalid value.");
+                return $"{char.ToUpper(surname[0])}.";
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    surname = value;
+                }
             }
         }
 
-        public override void AddTransaction(string transaction)
+        public UserInMemory(string name, string surname) : base(name, surname)
         {
-            throw new NotImplementedException();
+        }
+
+        public override void AddTransaction(float amount)
+        {
+            if (amount > 0)
+            {
+
+            }
+            else if (amount < 0)
+            {
+
+            }
+            else
+            {
+                throw new Exception($"{amount} is invalid value.");
+            }
+        }
+
+        public override void AddTransaction(string amount)
+        {
+
         }
 
         public override Statistics GetStatistics()
