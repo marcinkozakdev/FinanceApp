@@ -8,11 +8,11 @@ while (true)
 {
     WriteLineColor(ConsoleColor.DarkGray, 
         "Where you want to save data:\n" +
-        "-----------------------------------\n" +
-        "1 - Program memory\n" +
-        "2 - In .txt file\n" +
-        "X - Close App\n" +
-        "-----------------------------------\n" +
+        "----------------------------------------------\n" +
+        "\t1 - Program memory\n" +
+        "\t2 - In .txt file\n" +
+        "\tX - Close App\n" +
+        "----------------------------------------------\n" +
         "Press key 1, 2 or X: "
         );
 
@@ -25,6 +25,7 @@ while (true)
             break;
 
         case "2":
+            AddTransactionsToTxtFile();
             break;
 
         case "X":
@@ -47,27 +48,31 @@ static void AddTransactionsToMemory()
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(surname))
     {
         var inMemoryUser = new UserInMemory(name, surname);
+        inMemoryUser.TransactionAdded += TransactionAdded;
         EnterTransaction(inMemoryUser);
-        inMemoryUser.TransactionAdded += TransactionSaved;
+        inMemoryUser.ShowStatistics();
     }
     else
     {
-        WriteLineColor(ConsoleColor.Red, "");
+        WriteLineColor(ConsoleColor.Red, "User name ond surname can't be empty!");
     }
 }
 
-static void AddtransactionsToTxtFile()
+static void AddTransactionsToTxtFile()
 {
     string name = GetValueFromUser("Please insert your name: ");
     string surname = GetValueFromUser("Please insert your surname: ");
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(surname))
     {
-        var savedStudent = new UserInFile(name, surname);
+        var savedUser = new UserInFile(name, surname);
+        savedUser.TransactionAdded += TransactionAdded;
+        EnterTransaction(savedUser);
+        savedUser.ShowStatistics();
 
     }
     else
     {
-        WriteLineColor(ConsoleColor.Red, "");
+        WriteLineColor(ConsoleColor.Red, "User name ond surname can't be empty!");
     }
 }
 
@@ -100,20 +105,20 @@ static void EnterTransaction(IUser user)
         }
         finally
         {
-            WriteLineColor(ConsoleColor.DarkCyan, $"To leave and show {user.Name} {user.Surname} statistics enter 'q'.");
+            WriteLineColor(ConsoleColor.DarkGray, "To leave and show statistics enter 'q'.\n");
         }
     }
 }
 
-static void TransactionSaved(object sender, EventArgs args)
+static void TransactionAdded(object sender, EventArgs args)
 {
-    Console.WriteLine("Added new transaction!");
+    WriteLineColor(ConsoleColor.DarkGreen, "Added new transaction!\n");
 }
 
 static void WriteLineColor(ConsoleColor color, string text)
 {
     Console.ForegroundColor = color;
-    Console.WriteLine("-----------------------------------");
+    Console.WriteLine("----------------------------------------------");
     Console.Write(text);
     Console.ResetColor();
 }
@@ -121,9 +126,9 @@ static void WriteLineColor(ConsoleColor color, string text)
 static void Hello()
 {
     Console.ForegroundColor = ConsoleColor.DarkCyan;
-    Console.WriteLine("===================================");
-    Console.WriteLine("Welcome to console FINANCE APP");
-    Console.WriteLine("===================================");
+    Console.WriteLine("==============================================");
+    Console.WriteLine("\tWelcome to console FINANCE APP");
+    Console.WriteLine("==============================================");
     Console.ResetColor();
 }
 

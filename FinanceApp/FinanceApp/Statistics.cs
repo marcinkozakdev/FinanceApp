@@ -9,12 +9,36 @@
         public float SumIncome { get; private set; }
         public float SumExpenses { get; private set; }
         public float Balance { get; private set; }
-        public int CountTransaction { get; private set; }
-        public int CountIncome { get; private set; }
-        public int CountExpense { get; private set; }
+        public float CountTransaction { get; private set; }
+        public float CountIncome { get; private set; }
+        public float CountExpense { get; private set; }
 
         public Statistics()
         {
+            this.CountTransaction = 0;
+            this.CountIncome = 0;
+            this.CountExpense = 0;
+            this.MinIncome = float.MaxValue;
+            this.MinExpense = float.MaxValue;
+            this.MaxIncome = float.MinValue;
+            this.MaxExpense = float.MinValue;
+        }
+        public void AddTransaction(float amount)
+        {
+            this.CountTransaction++;
+            if (amount > 0)
+            {
+                this.CountIncome += amount;
+                this.MinIncome = Math.Min(this.MinIncome, amount);
+                this.MaxIncome = Math.Max(this.MaxIncome, amount);
+            }
+            else
+            {
+                this.CountExpense += amount;
+                this.MinExpense = Math.Min(this.MinExpense, amount);
+                this.MaxExpense = Math.Max(this.MaxExpense, amount);
+            }
         }
     }
 }
+

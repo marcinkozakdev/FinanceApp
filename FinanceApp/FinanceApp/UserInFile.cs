@@ -1,4 +1,6 @@
-﻿namespace FinanceApp
+﻿using System.Diagnostics;
+
+namespace FinanceApp
 {
     public class UserInFile : UserBase
     {
@@ -39,19 +41,66 @@
 
         public override event TransactionAddedDelegate TransactionAdded;
 
-        public override void AddTransaction(float transaction)
+        public override void AddIncome(float amount)
         {
-            throw new NotImplementedException();
+            using (var writer = File.AppendText($"{fullFileName}"))
+            {
+                writer.WriteLine(amount);
+
+                if (TransactionAdded != null)
+                {
+                    TransactionAdded(this, new EventArgs());
+                }
+            }
         }
 
-        public override void AddTransaction(string transaction)
+
+        public override void AddExpense(float amount)
         {
-            throw new NotImplementedException();
+            using (var writer = File.AppendText(fullFileName))
+            {
+                writer.WriteLine(amount);
+            }
+            if (TransactionAdded != null)
+            {
+                TransactionAdded(this, new EventArgs());
+            }
         }
 
         public override Statistics GetStatistics()
         {
-            throw new NotImplementedException();
+            var statistics = new Statistics();
+
+            if (File.Exists(fileName))
+            {
+                using (var reader = File.OpenText(fullFileName))
+                {
+                    var line = reader.ReadLine();
+                    while (line != null)
+                    {
+                        var amount = float.Parse(line);
+                        statistics.AddTransaction(amount);
+                        line = reader.ReadLine();
+                    }
+                }
+            }
+            return statistics;
+        }
+
+        public override void AddTransaction(float amount)
+        {
+            if (amount > 0)
+            {
+                AddIncome(amount);
+            }
+            else if (amount < 0)
+            {
+                AddTransaction(amount);
+            }
+            else
+            {
+                throw new Exception($"{amount} is invalid value.");
+            }
         }
     }
 

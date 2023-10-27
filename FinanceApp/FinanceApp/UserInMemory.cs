@@ -45,11 +45,11 @@
         {
             if (amount > 0)
             {
-
+                AddIncome(amount);
             }
             else if (amount < 0)
             {
-
+                AddTransaction(amount);
             }
             else
             {
@@ -57,14 +57,34 @@
             }
         }
 
-        public override void AddTransaction(string amount)
+        public override void AddIncome(float amount)
         {
+            amounts.Add(amount);
+            if (TransactionAdded != null)
+            {
+                TransactionAdded(this, new EventArgs());
+            }
+        }
+
+        public override void AddExpense(float amount)
+        {
+            amounts.Add(amount);
+            if (TransactionAdded != null)
+            {
+                TransactionAdded(this, new EventArgs());
+            }
 
         }
 
         public override Statistics GetStatistics()
         {
-            throw new NotImplementedException();
+            var statistics = new Statistics();
+
+            foreach (var amount in this.amounts)
+            {
+                statistics.AddTransaction(amount);
+            }
+            return statistics;
         }
     }
 }
