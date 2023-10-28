@@ -28,19 +28,40 @@ namespace FinanceApp
             var statistics = GetStatistics();
             if(statistics.CountTransaction !=0)
             {
-                Console.WriteLine($"SUMMARY");
+                Console.WriteLine("\n==============================================");
+                Console.WriteLine($"\t\tSUMMARY");
                 Console.WriteLine("==============================================");
-                Console.WriteLine($"Transaction Count: {statistics.CountTransaction}");
-                Console.WriteLine("----------------------------------------------");
-                Console.WriteLine($"Total Income: {statistics.CountIncome:N2} zł");
-                Console.WriteLine($"Total Expenses: {statistics.CountExpense:N2} zł");
+
+                if(statistics.Balance > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine($"\tBalance: {statistics.Balance:N2} zł");
+                    Console.ResetColor();
+                }
+                else if(statistics.Balance <0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine($"\tBalance: {statistics.Balance:N2} zł");
+                    Console.ResetColor();
+                }
+                else
+                {
                 Console.WriteLine($"Balance: {statistics.Balance:N2} zł");
+                }
+
+                Console.WriteLine("==============================================");
+                Console.WriteLine($"\tTransaction Count: {statistics.CountTransaction}");
+                Console.WriteLine($"\tIncome Count: {statistics.CountIncome}");
+                Console.WriteLine($"\tExpenses Count: {statistics.CountExpense}");
                 Console.WriteLine("----------------------------------------------");
-                Console.WriteLine($"Min Income: {statistics.MinIncome:N2} zł");
-                Console.WriteLine($"Max Income: {statistics.MaxIncome:N2} zł");
-                Console.WriteLine($"Min Expense: {statistics.MaxExpense:N2} zł");
-                Console.WriteLine($"Max Expense: {statistics.MinExpense:N2} zł");
+                Console.WriteLine($"\tTotal Income: {statistics.CountIncome:N2} zł");
+                Console.WriteLine($"\tTotal Expenses: {statistics.CountExpense:N2} zł");
                 Console.WriteLine("----------------------------------------------");
+                Console.WriteLine($"\tMin Income: {statistics.MinIncome:N2} zł");
+                Console.WriteLine($"\tMax Income: {statistics.MaxIncome:N2} zł");
+                Console.WriteLine($"\tMin Expense: {statistics.MaxExpense:N2} zł");
+                Console.WriteLine($"\tMax Expense: {statistics.MinExpense:N2} zł");
+                Console.WriteLine("==============================================");
             }
         }
 
@@ -52,7 +73,7 @@ namespace FinanceApp
             }
             else
             {
-                throw new Exception("This is not a number!");
+                throw new ArgumentException("\tThis is not a number!");
             }
         }
 
@@ -64,7 +85,7 @@ namespace FinanceApp
             }
             else
             {
-                throw new Exception("This is not a number!");
+                throw new ArgumentException("\tThis is not a number!\n");
             }
         }
 
@@ -76,7 +97,7 @@ namespace FinanceApp
             }
             else
             {
-                throw new Exception("This is not a number!");
+                throw new ArgumentException("\tThis is not a number!\n");
             }
         }
     }

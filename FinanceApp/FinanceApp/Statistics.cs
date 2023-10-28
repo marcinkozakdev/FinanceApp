@@ -1,4 +1,6 @@
-﻿namespace FinanceApp
+﻿using System.ComponentModel.Design;
+
+namespace FinanceApp
 {
     public class Statistics
     {
@@ -8,10 +10,13 @@
         public float MinExpense { get; private set; }
         public float SumIncome { get; private set; }
         public float SumExpenses { get; private set; }
-        public float Balance { get; private set; }
         public float CountTransaction { get; private set; }
         public float CountIncome { get; private set; }
         public float CountExpense { get; private set; }
+        public float Balance
+        {
+            get { return this.SumIncome + this.SumExpenses; }
+        }
 
         public Statistics()
         {
@@ -22,22 +27,29 @@
             this.MinExpense = float.MaxValue;
             this.MaxIncome = float.MinValue;
             this.MaxExpense = float.MinValue;
+            this.SumIncome = 0;
+            this.SumExpenses = 0;
+
         }
         public void AddTransaction(float amount)
         {
             this.CountTransaction++;
             if (amount > 0)
             {
-                this.CountIncome += amount;
+                this.SumIncome += amount;
+                this.CountIncome ++;
                 this.MinIncome = Math.Min(this.MinIncome, amount);
                 this.MaxIncome = Math.Max(this.MaxIncome, amount);
             }
-            else
+            else if (amount < 0)
             {
-                this.CountExpense += amount;
+                this.SumExpenses += amount;
+                this.CountExpense ++;
                 this.MinExpense = Math.Min(this.MinExpense, amount);
                 this.MaxExpense = Math.Max(this.MaxExpense, amount);
             }
+
+
         }
     }
 }

@@ -51,10 +51,6 @@
             {
                 AddTransaction(amount);
             }
-            else
-            {
-                throw new Exception($"{amount} is invalid value.");
-            }
         }
 
         public override void AddIncome(float amount)

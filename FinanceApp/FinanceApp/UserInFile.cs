@@ -71,7 +71,7 @@ namespace FinanceApp
         {
             var statistics = new Statistics();
 
-            if (File.Exists(fileName))
+            if (File.Exists(fullFileName))
             {
                 using (var reader = File.OpenText(fullFileName))
                 {
@@ -96,10 +96,6 @@ namespace FinanceApp
             else if (amount < 0)
             {
                 AddTransaction(amount);
-            }
-            else
-            {
-                throw new Exception($"{amount} is invalid value.");
             }
         }
     }

@@ -2,11 +2,9 @@
 
 Hello();
 
-bool CloseApp = false;
-
 while (true)
 {
-    WriteLineColor(ConsoleColor.DarkGray, 
+    WriteLineColor(ConsoleColor.DarkGray,
         "Where you want to save data:\n" +
         "----------------------------------------------\n" +
         "\t1 - Program memory\n" +
@@ -29,16 +27,13 @@ while (true)
             break;
 
         case "X":
-            CloseApp = true;
+            Environment.Exit(0);
             break;
 
         default:
-            WriteLineColor(ConsoleColor.Red, "Invalid operation.\n");
+            WriteLineColor(ConsoleColor.Red, "\tInvalid operation.\n");
             continue;
     }
-    Console.WriteLine();
-    WriteLineColor(ConsoleColor.DarkGray, "Press any key to leave.");
-    Console.ReadKey();
 };
 
 static void AddTransactionsToMemory()
@@ -112,7 +107,7 @@ static void EnterTransaction(IUser user)
 
 static void TransactionAdded(object sender, EventArgs args)
 {
-    WriteLineColor(ConsoleColor.DarkGreen, "Added new transaction!\n");
+    WriteLineColor(ConsoleColor.DarkGreen, "\tAdded new transaction!\n");
 }
 
 static void WriteLineColor(ConsoleColor color, string text)
@@ -128,7 +123,7 @@ static void Hello()
     Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("==============================================");
     Console.WriteLine("\tWelcome to console FINANCE APP");
-    Console.WriteLine("==============================================");
+    Console.WriteLine("==============================================\n");
     Console.ResetColor();
 }
 
