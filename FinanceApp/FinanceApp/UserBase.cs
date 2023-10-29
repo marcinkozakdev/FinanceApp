@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Transactions;
-
-namespace FinanceApp
+﻿namespace FinanceApp
 {
     public abstract class UserBase : Person, IUser
     {
@@ -48,14 +45,13 @@ namespace FinanceApp
                 {
                 Console.WriteLine($"Balance: {statistics.Balance:N2} zł");
                 }
+                Console.WriteLine($"\tTotal Income: {statistics.SumIncome:N2} zł");
+                Console.WriteLine($"\tTotal Expenses: {statistics.SumExpenses:N2} zł");
 
                 Console.WriteLine("==============================================");
                 Console.WriteLine($"\tTransaction Count: {statistics.CountTransaction}");
                 Console.WriteLine($"\tIncome Count: {statistics.CountIncome}");
                 Console.WriteLine($"\tExpenses Count: {statistics.CountExpense}");
-                Console.WriteLine("----------------------------------------------");
-                Console.WriteLine($"\tTotal Income: {statistics.CountIncome:N2} zł");
-                Console.WriteLine($"\tTotal Expenses: {statistics.CountExpense:N2} zł");
                 Console.WriteLine("----------------------------------------------");
                 Console.WriteLine($"\tMin Income: {statistics.MinIncome:N2} zł");
                 Console.WriteLine($"\tMax Income: {statistics.MaxIncome:N2} zł");
@@ -73,7 +69,7 @@ namespace FinanceApp
             }
             else
             {
-                throw new ArgumentException("\tThis is not a number!");
+                throw new ArgumentException("\tThis is incorrect amount!");
             }
         }
 
@@ -85,7 +81,7 @@ namespace FinanceApp
             }
             else
             {
-                throw new ArgumentException("\tThis is not a number!\n");
+                throw new ArgumentException("\tThis is incorrect amount!\n");
             }
         }
 
@@ -93,11 +89,11 @@ namespace FinanceApp
         {
             if (float.TryParse(amount, out float result))
             {
-                this.AddIncome(result);
+                this.AddTransaction(result);
             }
             else
             {
-                throw new ArgumentException("\tThis is not a number!\n");
+                throw new ArgumentException("\tThis is incorrect amount!\n");
             }
         }
     }

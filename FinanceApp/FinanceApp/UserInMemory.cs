@@ -22,6 +22,7 @@
                 }
             }
         }
+
         public override string Surname
         {
             get
@@ -49,7 +50,7 @@
             }
             else if (amount < 0)
             {
-                AddTransaction(amount);
+                AddExpense(amount);
             }
         }
 
@@ -69,7 +70,6 @@
             {
                 TransactionAdded(this, new EventArgs());
             }
-
         }
 
         public override Statistics GetStatistics()

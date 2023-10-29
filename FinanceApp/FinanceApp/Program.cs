@@ -31,7 +31,7 @@ while (true)
             break;
 
         default:
-            WriteLineColor(ConsoleColor.Red, "\tInvalid operation.\n");
+            WriteLineColor(ConsoleColor.Red, "\tInvalid operation!\n");
             continue;
     }
 };
@@ -59,11 +59,10 @@ static void AddTransactionsToTxtFile()
     string surname = GetValueFromUser("Please insert your surname: ");
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(surname))
     {
-        var savedUser = new UserInFile(name, surname);
-        savedUser.TransactionAdded += TransactionAdded;
-        EnterTransaction(savedUser);
-        savedUser.ShowStatistics();
-
+        var userInFile = new UserInFile(name, surname);
+        userInFile.TransactionAdded += TransactionAdded;
+        EnterTransaction(userInFile);
+        userInFile.ShowStatistics();
     }
     else
     {
@@ -86,15 +85,7 @@ static void EnterTransaction(IUser user)
         {
             user.AddTransaction(input);
         }
-        catch (FormatException ex)
-        {
-            WriteLineColor(ConsoleColor.Red, ex.Message);
-        }
         catch (ArgumentException ex)
-        {
-            WriteLineColor(ConsoleColor.Red, ex.Message);
-        }
-        catch (NullReferenceException ex)
         {
             WriteLineColor(ConsoleColor.Red, ex.Message);
         }

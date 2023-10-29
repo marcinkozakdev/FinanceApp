@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace FinanceApp
+﻿namespace FinanceApp
 {
     public class UserInFile : UserBase
     {
@@ -54,7 +52,6 @@ namespace FinanceApp
             }
         }
 
-
         public override void AddExpense(float amount)
         {
             using (var writer = File.AppendText(fullFileName))
@@ -95,11 +92,10 @@ namespace FinanceApp
             }
             else if (amount < 0)
             {
-                AddTransaction(amount);
+                AddExpense(amount);
             }
         }
     }
-
 }
 
 
