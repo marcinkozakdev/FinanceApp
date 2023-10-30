@@ -22,9 +22,9 @@
             this.CountIncome = 0;
             this.CountExpense = 0;
             this.MinIncome = float.MaxValue;
-            this.MinExpense = float.MaxValue;
+            this.MinExpense = float.MinValue;
             this.MaxIncome = float.MinValue;
-            this.MaxExpense = float.MinValue;
+            this.MaxExpense = float.MaxValue;
             this.SumIncome = 0;
             this.SumExpenses = 0;
         }
@@ -45,8 +45,8 @@
             {
                 this.SumExpenses += amount;
                 this.CountExpense ++;
-                this.MinExpense = Math.Min(this.MinExpense, amount);
-                this.MaxExpense = Math.Max(this.MaxExpense, amount);
+                this.MinExpense = Math.Max(this.MinExpense, amount);
+                this.MaxExpense = Math.Min(this.MaxExpense, amount);
             }
         }
     }
