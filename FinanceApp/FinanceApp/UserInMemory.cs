@@ -44,27 +44,6 @@
 
         public override void AddTransaction(float amount)
         {
-            if (amount > 0)
-            {
-                AddIncome(amount);
-            }
-            else if (amount < 0)
-            {
-                AddExpense(amount);
-            }
-        }
-
-        public override void AddIncome(float amount)
-        {
-            amounts.Add(amount);
-            if (TransactionAdded != null)
-            {
-                TransactionAdded(this, new EventArgs());
-            }
-        }
-
-        public override void AddExpense(float amount)
-        {
             amounts.Add(amount);
             if (TransactionAdded != null)
             {

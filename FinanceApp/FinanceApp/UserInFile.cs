@@ -39,31 +39,6 @@
 
         public override event TransactionAddedDelegate TransactionAdded;
 
-        public override void AddIncome(float amount)
-        {
-            using (var writer = File.AppendText($"{fullFileName}"))
-            {
-                writer.WriteLine(amount);
-
-                if (TransactionAdded != null)
-                {
-                    TransactionAdded(this, new EventArgs());
-                }
-            }
-        }
-
-        public override void AddExpense(float amount)
-        {
-            using (var writer = File.AppendText(fullFileName))
-            {
-                writer.WriteLine(amount);
-            }
-            if (TransactionAdded != null)
-            {
-                TransactionAdded(this, new EventArgs());
-            }
-        }
-
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
@@ -86,16 +61,17 @@
 
         public override void AddTransaction(float amount)
         {
-            if (amount > 0)
+            using (var writer = File.AppendText($"{fullFileName}"))
             {
-                AddIncome(amount);
-            }
-            else if (amount < 0)
-            {
-                AddExpense(amount);
+                writer.WriteLine(amount);
+
+                if (TransactionAdded != null)
+                {
+                    TransactionAdded(this, new EventArgs());
+                }
             }
         }
-    }
+    } 
 }
 
 

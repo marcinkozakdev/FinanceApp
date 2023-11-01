@@ -15,8 +15,6 @@
         }
 
         public abstract void AddTransaction(float amount);
-        public abstract void AddIncome(float amount);
-        public abstract void AddExpense(float amount);
 
         public abstract Statistics GetStatistics();
 
@@ -97,32 +95,6 @@
                     Console.WriteLine($"\tMax Expense: {statistics.MaxExpense:N2} zł");
                 }
                 Console.WriteLine("==============================================");
-            }
-        }
-
-        public void AddIncome(string amount)
-        {
-            if (float.TryParse(amount, out float result))
-            {
-                this.AddIncome(result);
-            }
-
-            else
-            {
-                throw new ArgumentException("\tThis is incorrect amount!");
-            }
-        }
-
-        public void AddExpense(string amount)
-        {
-            if (float.TryParse(amount, out float result))
-            {
-                this.AddExpense(result);
-            }
-
-            else
-            {
-                throw new ArgumentException("\tThis is incorrect amount!\n");
             }
         }
 
